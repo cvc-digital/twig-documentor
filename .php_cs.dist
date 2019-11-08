@@ -1,0 +1,40 @@
+<?php
+
+$headerComment = <<<DOC
+This file is part of the cvc/twig-documentor package.
+
+(c) CARL von CHIARI GmbH <opensource@cvc.digital>
+
+This source file is subject to the MIT license that is bundled
+with this source code in the file LICENSE.
+DOC;
+
+return PhpCsFixer\Config::create()
+    ->setRules([
+        '@Symfony' => true,
+        'array_syntax' => ['syntax' => 'short'],
+        'combine_consecutive_unsets' => true,
+        'general_phpdoc_annotation_remove' => ['@author', '@package', '@subpackage'],
+        'heredoc_to_nowdoc' => true,
+        'linebreak_after_opening_tag' => true,
+        'mb_str_functions' => true,
+        'no_php4_constructor' => true,
+        'no_unreachable_default_argument_value' => true,
+        'no_useless_else' => true,
+        'no_useless_return' => true,
+        'ordered_class_elements' => true,
+        'ordered_imports' => true,
+        'php_unit_strict' => true,
+        'phpdoc_add_missing_param_annotation' => true,
+        'phpdoc_order' => true,
+        'semicolon_after_instruction' => true,
+        'simplified_null_return' => true,
+        'header_comment' => [
+            'header' => $headerComment,
+        ],
+        'yoda_style' => false,
+    ])
+    ->setRiskyAllowed(true)
+    ->setFinder(PhpCsFixer\Finder::create()->in('.'))
+    ->setUsingCache(true)
+;

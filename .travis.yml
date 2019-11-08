@@ -1,0 +1,74 @@
+language: php
+
+addons:
+  apt:
+    packages:
+      - parallel
+
+cache:
+  directories:
+    - $HOME/.composer/cache
+
+stages:
+  - static_analysis
+  - test
+
+.Unit Tests Template: &unit_tests
+  stage: test
+  install:
+    - composer install
+  script:
+    - php vendor/bin/phpunit -c ./phpunit.xml --coverage-clover=coverage.xml
+    - bash <(curl -s https://codecov.io/bash)
+
+.Lint PHP: &lint_php
+  stage: static_analysis
+  script:
+    - find . -name \*.php ! -path "./.Build/*" ! -path "./vendor/*" | parallel --gnu php -d display_errors=stderr -l {} > /dev/null \;;
+
+.Lint Editorconfig: &editor_config
+  stage: static_analysis
+  install:
+    - npm install -g editorconfig-checker@^2.0
+  script:
+    - editorconfig-checker
+
+.Psalm: &psalm
+  stage: static_analysis
+  install:
+    - if [ -z "$dependencies" ]; then composer update --prefer-dist --no-progress; fi;
+    - if [ "$dependencies" = "lowest" ]; then composer update --prefer-dist --no-progress --prefer-lowest -n; fi;
+  script:
+    - php ./vendor/bin/psalm --shepherd
+
+jobs:
+  include:
+    - <<: *lint_php
+      name: Lint PHP 7.3
+      php: 7.3
+    - <<: *lint_php
+      name: Lint PHP 7.2
+      php: 7.2
+    - <<: *editor_config
+      name: Lint Editorconfig
+      php: 7.3
+    - <<: *psalm
+      name: Psalm (PHP 7.3)
+      php: 7.3
+    - <<: *psalm
+      name: Psalm (PHP 7.2)
+      php: 7.2
+    - <<: *unit_tests
+      name: Unit Tests (PHP 7.3, highest)
+      php: 7.3
+    - <<: *unit_tests
+      name: Unit Tests (PHP 7.2, highest)
+      php: 7.2
+    - <<: *unit_tests
+      name: Unit Tests (PHP 7.3, lowest)
+      php: 7.3
+      env: dependencies=lowest
+    - <<: *unit_tests
+      name: Unit Tests (PHP 7.2, lowest)
+      php: 7.2
+      env: dependencies=lowest

@@ -1,0 +1,46 @@
+{
+    "type": "library",
+    "name": "cvc/twig-documentor",
+    "description": "Automatically generates documentation for Twig extensions.",
+    "homepage": "https://cvc.digital",
+    "support": {
+        "issues": "https://github.com/cvc-digital/twig-documentor/issues",
+        "source": "https://github.com/cvc-digital/twig-documentor"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Markus Poerschke",
+            "email": "poerschke@cvc.digital",
+            "homepage": "https://cvc.digital",
+            "role": "Developer"
+        },
+        {
+            "name": "CARL von CHIARI GmbH",
+            "email": "opensource@cvc.digital",
+            "homepage": "https://cvc.digital",
+            "role": "Maintainer"
+        }
+    ],
+    "require": {
+        "php": ">=7.2,<7.4",
+        "twig/twig": "^2.0",
+        "phpdocumentor/reflection-docblock": "^4.3"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^8",
+        "friendsofphp/php-cs-fixer": "^2.3",
+        "vimeo/psalm": "^3.6",
+        "symfony/var-dumper": "^3|^4"
+    },
+    "autoload": {
+        "psr-4": {
+            "Cvc\\TwigDocumentor\\": "src"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.x-dev"
+        }
+    }
+}
