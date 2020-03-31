@@ -23,7 +23,7 @@
         }
     ],
     "require": {
-        "php": ">=7.2,<7.4",
+        "php": ">=7.2",
         "twig/twig": "^2.0",
         "phpdocumentor/reflection-docblock": "^4.3"
     },

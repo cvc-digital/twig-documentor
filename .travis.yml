@@ -44,6 +44,9 @@ stages:
 jobs:
   include:
     - <<: *lint_php
+      name: Lint PHP 7.4
+      php: 7.4
+    - <<: *lint_php
       name: Lint PHP 7.3
       php: 7.3
     - <<: *lint_php
@@ -51,13 +54,19 @@ jobs:
       php: 7.2
     - <<: *editor_config
       name: Lint Editorconfig
-      php: 7.3
+      php: 7.4
     - <<: *psalm
       name: Psalm (PHP 7.3)
       php: 7.3
     - <<: *psalm
+      name: Psalm (PHP 7.4)
+      php: 7.4
+    - <<: *psalm
       name: Psalm (PHP 7.2)
       php: 7.2
+    - <<: *unit_tests
+      name: Unit Tests (PHP 7.4, highest)
+      php: 7.4
     - <<: *unit_tests
       name: Unit Tests (PHP 7.3, highest)
       php: 7.3
