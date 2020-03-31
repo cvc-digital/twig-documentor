@@ -129,7 +129,7 @@ abstract class AbstractDescriber
             $paramterDescription = new ParameterDescription($parameter->getName());
 
             if ($parameter->hasType()) {
-                $paramterDescription = $paramterDescription->withType($parameter->getType());
+                $paramterDescription = $paramterDescription->withType($parameter->getType()->getName());
             }
 
             if ($parameter->isDefaultValueAvailable()) {
