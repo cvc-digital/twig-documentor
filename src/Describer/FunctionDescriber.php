@@ -18,8 +18,8 @@ final class FunctionDescriber extends AbstractDescriber
 {
     public function describe(TwigFunction $function): FunctionDescription
     {
-        $skipParameters = $function->needsContext() + $function->needsEnvironment();
-        $description = $this->describeCallable(new FunctionDescription($function->getName()), $function->getCallable(), $skipParameters);
+        $numberOfSkippedParameters = intval($function->needsContext()) + intval($function->needsEnvironment());
+        $description = $this->describeCallable(new FunctionDescription($function->getName()), $function->getCallable(), $numberOfSkippedParameters);
         assert($description instanceof FunctionDescription);
 
         return $description;

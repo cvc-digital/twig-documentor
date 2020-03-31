@@ -18,8 +18,8 @@ final class FilterDescriber extends AbstractDescriber
 {
     public function describe(TwigFilter $filter): FilterDescription
     {
-        $skipParameters = $filter->needsContext() + $filter->needsEnvironment();
-        $description = $this->describeCallable(new FilterDescription($filter->getName()), $filter->getCallable(), $skipParameters);
+        $numberOfSkippedParameters = intval($filter->needsContext()) + intval($filter->needsEnvironment());
+        $description = $this->describeCallable(new FilterDescription($filter->getName()), $filter->getCallable(), $numberOfSkippedParameters);
         assert($description instanceof FilterDescription);
 
         return $description;
