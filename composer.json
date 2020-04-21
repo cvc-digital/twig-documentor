@@ -1,12 +1,8 @@
 {
-    "type": "library",
     "name": "cvc/twig-documentor",
+    "type": "library",
     "description": "Automatically generates documentation for Twig extensions.",
     "homepage": "https://cvc.digital",
-    "support": {
-        "issues": "https://github.com/cvc-digital/twig-documentor/issues",
-        "source": "https://github.com/cvc-digital/twig-documentor"
-    },
     "license": "MIT",
     "authors": [
         {
@@ -24,23 +20,28 @@
     ],
     "require": {
         "php": ">=7.3",
-        "twig/twig": "^3.0",
-        "phpdocumentor/reflection-docblock": "^4.3"
+        "phpdocumentor/reflection-docblock": "^4.3",
+        "twig/twig": "^3.0"
     },
     "require-dev": {
+        "ergebnis/composer-normalize": "^2.3",
+        "friendsofphp/php-cs-fixer": "^2.16.3",
         "phpunit/phpunit": "^8",
-        "friendsofphp/php-cs-fixer": "^2.3",
-        "vimeo/psalm": "^3.6",
-        "symfony/var-dumper": "^3|^4"
+        "symfony/var-dumper": "^3 || ^4",
+        "vimeo/psalm": "^3.6"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.x-dev"
+        }
     },
     "autoload": {
         "psr-4": {
             "Cvc\\TwigDocumentor\\": "src"
         }
     },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "0.x-dev"
-        }
+    "support": {
+        "issues": "https://github.com/cvc-digital/twig-documentor/issues",
+        "source": "https://github.com/cvc-digital/twig-documentor"
     }
 }
