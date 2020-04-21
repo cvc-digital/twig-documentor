@@ -65,7 +65,7 @@ abstract class AbstractDescriber
 
             foreach ($docBlock->getTagsByName('example') as $example) {
                 assert($example instanceof Tags\Generic);
-                $description = $description->withExample(new CodeExample($example->getDescription()));
+                $description = $description->withExample(new CodeExample($example->__toString()));
             }
         }
 
@@ -121,7 +121,10 @@ abstract class AbstractDescriber
         if ($docBlock) {
             foreach ($docBlock->getTagsByName('param') as $tag) {
                 assert($tag instanceof Tags\Param);
-                $paramTags[$tag->getVariableName()] = $tag;
+                $variableName = $tag->getVariableName();
+                if ($variableName !== null) {
+                    $paramTags[$variableName] = $tag;
+                }
             }
         }
 
@@ -142,7 +145,10 @@ abstract class AbstractDescriber
 
             if (isset($paramTags[$parameter->getName()])) {
                 $tag = $paramTags[$parameter->getName()];
-                $paramterDescription = $paramterDescription->withSummary($tag->getDescription());
+                $tagDescription = $tag->getDescription();
+                if ($tagDescription !== null) {
+                    $paramterDescription = $paramterDescription->withSummary($tagDescription->__toString());
+                }
             }
 
             $description = $description->withParameter($paramterDescription);
