@@ -139,6 +139,10 @@ abstract class AbstractDescriber
             if ($parameter->hasType()) {
                 $type = $parameter->getType();
 
+                /**
+                 * @psalm-suppress TypeDoesNotContainType
+                 * @psalm-suppress UndefinedClass
+                 */
                 if ($type instanceof \ReflectionUnionType) {
                     $typeName = implode(
                         '|',
