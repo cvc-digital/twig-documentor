@@ -19,6 +19,8 @@ use phpDocumentor\Reflection\DocBlock\Tags;
 use phpDocumentor\Reflection\DocBlockFactoryInterface;
 use ReflectionClass;
 use ReflectionFunction;
+use ReflectionNamedType;
+use ReflectionParameter;
 
 abstract class AbstractDescriber
 {
@@ -108,6 +110,9 @@ abstract class AbstractDescriber
         return $description;
     }
 
+    /**
+     * @param ReflectionParameter[] $reflectionParameters
+     */
     private function describeParameters(Description $description, ?DocBlock $docBlock, array $reflectionParameters, int $skipParameters): Description
     {
         if (count($reflectionParameters) <= $skipParameters) {
@@ -129,17 +134,36 @@ abstract class AbstractDescriber
         }
 
         foreach ($reflectionParameters as $parameter) {
-            $paramterDescription = new ParameterDescription($parameter->getName());
+            $parameterDescription = new ParameterDescription($parameter->getName());
 
             if ($parameter->hasType()) {
-                $paramterDescription = $paramterDescription->withType($parameter->getType()->getName());
+                $type = $parameter->getType();
+
+                /**
+                 * @psalm-suppress TypeDoesNotContainType
+                 * @psalm-suppress UndefinedClass
+                 */
+                if ($type instanceof \ReflectionUnionType) {
+                    $typeName = implode(
+                        '|',
+                        array_map(
+                            static function (ReflectionNamedType $namedType) { return $namedType->getName(); },
+                            $type->getTypes()
+                        )
+                    );
+                } else {
+                    assert($type instanceof ReflectionNamedType);
+                    $typeName = $type->getName();
+                }
+
+                $parameterDescription = $parameterDescription->withType($typeName);
             }
 
             if ($parameter->isDefaultValueAvailable()) {
                 if ($parameter->isDefaultValueConstant()) {
-                    $paramterDescription = $paramterDescription->withDefaultValue($parameter->getDefaultValueConstantName());
+                    $parameterDescription = $parameterDescription->withDefaultValue((string) $parameter->getDefaultValueConstantName());
                 } else {
-                    $paramterDescription = $paramterDescription->withDefaultValue($this->formatDefaultValue($parameter->getDefaultValue()));
+                    $parameterDescription = $parameterDescription->withDefaultValue($this->formatDefaultValue($parameter->getDefaultValue()));
                 }
             }
 
@@ -147,11 +171,11 @@ abstract class AbstractDescriber
                 $tag = $paramTags[$parameter->getName()];
                 $tagDescription = $tag->getDescription();
                 if ($tagDescription !== null) {
-                    $paramterDescription = $paramterDescription->withSummary($tagDescription->__toString());
+                    $parameterDescription = $parameterDescription->withSummary($tagDescription->__toString());
                 }
             }
 
-            $description = $description->withParameter($paramterDescription);
+            $description = $description->withParameter($parameterDescription);
         }
 
         return $description;
