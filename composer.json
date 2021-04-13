@@ -28,7 +28,7 @@
         "friendsofphp/php-cs-fixer": "^2.16.3",
         "phpunit/phpunit": "^8",
         "symfony/var-dumper": "^3 || ^4",
-        "vimeo/psalm": "^3.6"
+        "vimeo/psalm": "^4.7.0"
     },
     "extra": {
         "branch-alias": {

@@ -163,7 +163,7 @@ abstract class Description
         }
 
         // parameters are too long: show each parameter in a row
-        $parameters = array_map(function (string $parameterOutput) use ($pos): string {
+        $parameters = array_map(function (string $parameterOutput): string {
             return str_pad('', 4).$parameterOutput;
         }, $parameters);
 

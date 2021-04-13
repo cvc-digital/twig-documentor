@@ -1,6 +1,6 @@
 # Twig Documentor
 
-[![Build Status](https://travis-ci.org/cvc-digital/twig-documentor.svg?branch=master)](https://travis-ci.org/cvc-digital/twig-documentor)
+[![Continuous Integration](https://github.com/cvc-digital/twig-documentor/actions/workflows/ci.yml/badge.svg)](https://github.com/cvc-digital/twig-documentor/actions/workflows/ci.yml)
 [![codecov](https://codecov.io/gh/cvc-digital/twig-documentor/branch/master/graph/badge.svg)](https://codecov.io/gh/cvc-digital/twig-documentor)
 [![Packagist](https://img.shields.io/packagist/v/cvc/twig-documentor.svg)](https://packagist.org/packages/cvc/twig-documentor)
 [![Psalm coverage](https://shepherd.dev/github/cvc-digital/twig-documentor/coverage.svg?)](https://shepherd.dev/github/cvc-digital/twig-documentor)
